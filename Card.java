@@ -1,4 +1,4 @@
-package pkg21game;
+package model;
 
 public class Card implements Comparable<Card> {
 
