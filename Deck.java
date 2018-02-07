@@ -23,11 +23,7 @@ public class Deck {
     
     public Card drawCard(){
         //Draws "top" card off the deck, then discards the card
-        //Need to SHUFFLE beforehand
-        Card res = cards[marker];
-        marker++;
-        System.out.println(res);
-        return res;
+        return null;
     }
     public boolean canDraw(){
         //Checks if there are any more cards to draw!
