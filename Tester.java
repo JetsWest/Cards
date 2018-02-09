@@ -11,8 +11,7 @@ import model.*;
  */
 public class Tester {
     public static void main(String[] args){
-        Deck TestDeck = new Deck();
-        TestDeck.drawCard();
+        DeckList TestDeck = new DeckList();
         TestDeck.drawCard();
     }
 }
