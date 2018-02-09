@@ -11,6 +11,7 @@ import java.util.ArrayList;
  */
 public class DeckList {
     private ArrayList<Card> card = new ArrayList<Card>();
+    private int loc;
     
     public DeckList(){
         for (Card.Suit suit: Card.Suit.values()){
@@ -20,8 +21,11 @@ public class DeckList {
         }
     }
     public void shuffle(){}
-    public Card drawCard(){}
-    public boolean hasNext(){ }
+    public Card drawCard(){
+
+    }
+    public boolean hasNext(){ 
+    }
     public void printCards(){
         for (Card print: this.card){
             System.out.println(print);

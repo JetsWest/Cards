@@ -21,20 +21,22 @@ public class Deck {
         //Shuffles the order of the cards in this.cards 
         //Also re-introduces all 'drawn' cards back into deck
         int index;
-        Random rand = new Random();
-        for (int i = 0; i < cards.length; i++){
-            index = rand.nextInt(i+1);
-            Card temp = cards[index];
-            cards[index] = cards[i];
-            cards[i] = temp;
+        Card temp;
+        Random r = new Random();
+        for (int i = this.cards.length-1; i > 0; i--){
+            index = r.nextInt(i+1);
+            temp = this.cards[i];
+            this.cards[i] = this.cards[index];
+            this.cards[index] = temp;
         }
     }
     
-    public Card drawCard(){
+    public Card drawCard() throws NullPointerException{
         //Draws "top" card off the deck, then discards the card
         if (marker == 0){
         this.shuffle();
         }
+        
         if (canDraw()){
             Card res = this.cards[marker];
             marker++;
@@ -51,5 +53,14 @@ public class Deck {
         for (Card card: this.cards){
             System.out.println(card);
         }
+    }
+    public int getCard(Card card){
+        for (int i = 0; i < this.cards.length; i++){
+            if (this.cards[i].equals(card)){
+                System.out.println("The index is: " + i);
+                return i;
+            }
+        }
+        return -1;
     }
 }

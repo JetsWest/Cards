@@ -11,7 +11,11 @@ import model.*;
  */
 public class Tester {
     public static void main(String[] args){
-        DeckList TestDeck = new DeckList();
-        TestDeck.drawCard();
+        Deck TestDeck = new Deck();
+        TestDeck.shuffle();
+        TestDeck.printCards();
+        System.out.println();
+        Card test = new Card(Card.Rank.ACE, Card.Suit.SPADES);
+        TestDeck.getCard(test);
     }
 }
