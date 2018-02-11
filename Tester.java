@@ -12,10 +12,10 @@ import model.*;
 public class Tester {
     public static void main(String[] args){
         Deck TestDeck = new Deck();
-        TestDeck.shuffle();
-        TestDeck.printCards();
-        System.out.println();
-        Card test = new Card(Card.Rank.ACE, Card.Suit.SPADES);
-        TestDeck.getCard(test);
+        Card object = new Card(Card.Rank.TWO, Card.Suit.CLUBS);
+        Card other = new Card(Card.Rank.TWO, Card.Suit.CLUBS);
+        if (object.equals(other)){
+            System.out.println("yeet");
+        }
     }
 }
