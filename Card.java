@@ -33,6 +33,7 @@ public class Card implements Comparable<Card> {
         return this.rank.text + " of " + this.suit.text;
     }
 
+    @Override
     public int compareTo(Card other) {
         return this.rank.value - other.rank.value;
     }

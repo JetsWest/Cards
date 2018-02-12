@@ -12,10 +12,8 @@ import model.*;
 public class Tester {
     public static void main(String[] args){
         Deck TestDeck = new Deck();
-        Card object = new Card(Card.Rank.TWO, Card.Suit.CLUBS);
-        Card other = new Card(Card.Rank.TWO, Card.Suit.CLUBS);
-        if (object.equals(other)){
-            System.out.println("yeet");
-        }
+        TestDeck.shuffle();
+        TestDeck.selectionSort();
+        TestDeck.printCards();
     }
 }

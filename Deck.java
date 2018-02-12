@@ -5,7 +5,8 @@ import java.util.Random;
 public class Deck {
     private Card[] cards;
     private int marker;
-    
+    private int loc;
+
     public Deck() {
         this.cards = new Card[52];
         int pos = 0;
@@ -37,7 +38,7 @@ public class Deck {
         this.shuffle();
         }
         
-        if (canDraw()){
+        if (hasNext()){
             Card res = this.cards[marker];
             marker++;
             System.out.println(res);
@@ -45,7 +46,7 @@ public class Deck {
         }
         return null;
     }
-    public boolean canDraw(){
+    public boolean hasNext(){
         //Checks if there are any more cards to draw!
         return marker < 52;
     }
@@ -62,5 +63,25 @@ public class Deck {
             }
         }
         return -1;
+    }
+    private void swap(int ndx1, int ndx2){
+        Card temp = this.cards[ndx1];
+        this.cards[ndx1] = this.cards[ndx2];
+        this.cards[ndx2] = temp;
+    }
+    public void selectionSort(){
+        int pos;
+        for (int i = 0; i < this.cards.length-1; i++){
+            pos = i;
+            for (int j = i+1; this.cards[j].getRank().value < this.cards[pos].getRank().value; j = pos){
+                swap(i, j);
+            }
+        }
+    }
+    public void insertionSort(){
+        
+    }
+    public void mergeSort(){
+        
     }
 }
