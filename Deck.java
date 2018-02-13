@@ -14,12 +14,12 @@ public class Deck {
             for (Card.Rank rank: Card.Rank.values()){
                 this.cards[pos] = new Card(rank, suit);
                 pos++;
+            }
         }
+        marker = 0;
     }
-    marker = 0;
-}
     public void shuffle(){
-        //Shuffles the order of the cards in this.cards 
+        //Shuffles the order of the cards in this.cards
         //Also re-introduces all 'drawn' cards back into deck
         int index;
         Card temp;
@@ -31,13 +31,13 @@ public class Deck {
             this.cards[index] = temp;
         }
     }
-    
+
     public Card drawCard() throws NullPointerException{
         //Draws "top" card off the deck, then discards the card
         if (marker == 0){
-        this.shuffle();
+            this.shuffle();
         }
-        
+
         if (hasNext()){
             Card res = this.cards[marker];
             marker++;
@@ -70,18 +70,20 @@ public class Deck {
         this.cards[ndx2] = temp;
     }
     public void selectionSort(){
-        int pos;
         for (int i = 0; i < this.cards.length-1; i++){
-            pos = i;
-            for (int j = i+1; this.cards[j].getRank().value < this.cards[pos].getRank().value; j = pos){
-                swap(i, j);
+            int pos = i;
+            for (int j = i+1; j < this.cards.length; j++){
+                if (this.cards[j].getRank().value < this.cards[pos].getRank().value && i != j){
+                        pos = j;
+                        swap(pos, i);
+                }
             }
         }
     }
     public void insertionSort(){
-        
+
     }
     public void mergeSort(){
-        
+
     }
 }
