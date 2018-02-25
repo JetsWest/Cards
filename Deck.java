@@ -88,7 +88,7 @@ public class Deck {
         }
     }
     public void mergeSort(){
-
+        mergeSortR(this.cards);
     }
     private Card[] mergeSortR(Card[] list){
         //Stops an infinite recursion from happening
@@ -108,9 +108,7 @@ public class Deck {
         }
         
         //Sorting
-        left = mergeSortR(left);
-        right = mergeSortR(right);
-    
+        
         //Combining
         Card[] temp = new Card[left.length+right.length]; //STEP ONE
         int newMark = 0; //STEP TWO
@@ -118,14 +116,15 @@ public class Deck {
         int rMark = 0;
         
         while (lMark < left.length && rMark < right.length){
-            if (left[lMark].getRank().value < right[rMark].getRank().value){
-                temp[newMark++] = left[lMark++];
-            }
-            if (right[rMark].getRank().value < left[lMark].getRank().value){
-                temp[newMark++] = right[rMark++];
-            }
+                if (left[lMark].compareTo(right[rMark]) < 0){
+                    temp[newMark] = left[lMark];
+                    lMark++;
+                }else{
+                    temp[newMark] = right[rMark];
+                    rMark++;
+                }
+                newMark++;
         }
-        System.out.println(temp);
         return temp;
     }
 }

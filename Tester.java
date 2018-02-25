@@ -13,7 +13,7 @@ public class Tester {
     public static void main(String[] args){
         Deck TestDeck = new Deck();
         TestDeck.shuffle();
- 
+        TestDeck.mergeSort();
         TestDeck.printCards();
     }
 }
