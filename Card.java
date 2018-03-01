@@ -1,7 +1,6 @@
 package model;
 
 public class Card implements Comparable<Card> {
-
     private final Suit suit;
     private final Rank rank;
 

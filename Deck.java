@@ -17,7 +17,6 @@ public class Deck {
     }
     marker = 0;
 }
-
     public void shuffle(){
         //Shuffles the order of the cards in this.cards 
         //Also re-introduces all 'drawn' cards back into deck
@@ -55,13 +54,45 @@ public class Deck {
             System.out.println(card);
         }
     }
-    public int getCard(Card card){
-        for (int i = 0; i < this.cards.length; i++){
-            if (this.cards[i].equals(card)){
+    public int bruteForceSearch(Card card){
+        int i = 0;
+        for (Card next: cards){
+            if (card.equals(next)){
                 System.out.println("The index is: " + i);
                 return i;
+            }else{
+                i++;
             }
         }
+        return -1;
+    }
+    
+    public int binarySearch(Card card){
+        //copy cards to dummy and sorts it
+        Card[] dummy = new Card[cards.length];
+        for (int i = 0; i < cards.length; i++){
+            dummy[i] = cards[i];
+        }
+        dummy = mergeSortR(dummy);
+        
+       
+        int left = 0;
+        int right = dummy.length-1;
+            
+        while(left <= right){
+            int pivot = (right+left) / 2;
+            if (dummy[pivot].equals(card)){
+                System.out.println(pivot);
+                return pivot;
+            }
+      
+            if (dummy[pivot].compareTo(card) < 0){
+                left = pivot+1;
+            }else{
+                right = pivot-1;
+            }
+        }
+
         return -1;
     }
     private void swap(int ndx1, int ndx2){
@@ -82,15 +113,16 @@ public class Deck {
     }
     public void insertionSort(){
         for (int i = 0; i < this.cards.length; i++){
-            for (int k = i; k >= 1 && this.cards[k].getRank().value < this.cards[k-1].getRank().value; k--){
+            for (int k = i; k >= 1 && this.cards[k].compareTo(this.cards[k-1]) < 0; k--){
                 swap (k, k-1);
             }
         }
     }
-    public void mergeSort(){
-        mergeSortR(this.cards);
+    public Deck mergeSort(){
+        this.cards = mergeSortR(this.cards);
+        return this;
     }
-    private Card[] mergeSortR(Card[] list){
+    private Card[] mergeSortR(Card[] cards){
         //Stops an infinite recursion from happening
         //based on idea that list of 1 or less things is already sorted
         if (cards.length <= 1){
@@ -108,6 +140,8 @@ public class Deck {
         }
         
         //Sorting
+        left = mergeSortR(left);
+        right = mergeSortR(right);
         
         //Combining
         Card[] temp = new Card[left.length+right.length]; //STEP ONE
@@ -115,6 +149,7 @@ public class Deck {
         int lMark = 0;
         int rMark = 0;
         
+        //Combine until at least one list is all gone
         while (lMark < left.length && rMark < right.length){
                 if (left[lMark].compareTo(right[rMark]) < 0){
                     temp[newMark] = left[lMark];
@@ -124,6 +159,14 @@ public class Deck {
                     rMark++;
                 }
                 newMark++;
+        }
+        //Select remaining list and add the rest to back of reslt
+        Card[] remaining = (lMark < left.length)?left:right; //in () is if statement, first after ? is true, second after ? is false (to select)
+        int endx = (lMark < left.length)?lMark:rMark;
+        while(newMark < temp.length){
+            temp[newMark] = remaining[endx];
+            newMark++;
+            endx++;
         }
         return temp;
     }

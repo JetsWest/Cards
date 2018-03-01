@@ -11,9 +11,10 @@ import model.*;
  */
 public class Tester {
     public static void main(String[] args){
-        Deck TestDeck = new Deck();
-        TestDeck.shuffle();
-        TestDeck.mergeSort();
-        TestDeck.printCards();
+        Deck deck = new Deck();
+        deck.shuffle();
+        deck.mergeSort();
+        deck.binarySearch(new Card(Card.Rank.FIVE, Card.Suit.SPADES));
+        deck.printCards();
     }
 }
