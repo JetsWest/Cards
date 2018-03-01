@@ -73,8 +73,8 @@ public class Deck {
         for (int i = 0; i < cards.length; i++){
             dummy[i] = cards[i];
         }
-        dummy = mergeSortR(dummy);
         
+        dummy = mergeSortR(dummy);
        
         int left = 0;
         int right = dummy.length-1;
@@ -86,13 +86,16 @@ public class Deck {
                 return pivot;
             }
       
-            if (dummy[pivot].compareTo(card) < 0){
-                left = pivot+1;
-            }else{
+            if (dummy[pivot].compareTo(card) > 0){
                 right = pivot-1;
+            }else{
+                left = pivot+1;
             }
         }
 
+        return -1;
+    }
+    public int binarySearchR(Card card){
         return -1;
     }
     private void swap(int ndx1, int ndx2){
