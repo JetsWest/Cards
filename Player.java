@@ -38,9 +38,7 @@ public class Player {
     public void takeCard(Card card){
         this.hand.add(card);
     }
-    public void playRound(){
-        
-    }
+
     public boolean bust(){
         if (getHandValue() > 21){
             return true;
@@ -48,22 +46,27 @@ public class Player {
         return false;
     }
     public int getHandValue(){
+        boolean ace = false;
         for (int i = 0; i < this.hand.size(); i++){
             if (this.hand.get(i).getRank().value > 10){
                 points += 10;
-            }else if (this.hand.get(i).getRank().value == 1){
-                points += 1;
-            }else{
+            }
+            if (this.hand.get(i).getRank().value == 1){
+                ace = true;
+            }
             points += this.hand.get(i).getRank().value;
             }
-        }    
+        if (ace == true && points + 10 <= 21){
+            points += 10;
+        }
+        System.out.println(points);
         return points;
     }
+
     public void clearHand(){
         this.hand.clear();
     } 
     public int numWins(){
-      System.out.println(this.wins);
       return this.wins;
     }
     public int numLosses(){
@@ -72,7 +75,11 @@ public class Player {
     public int numScore(){
       return this.score;
     }
-
+    public void printHand(){
+        for (int i = 0; i < this.hand.size(); i++){
+            System.out.println("Position " + (i+1) + ": " + this.hand.get(i));
+        }
+    }
     
 }
 
