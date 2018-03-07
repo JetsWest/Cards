@@ -61,6 +61,18 @@ public class Player {
     }
     public void clearHand(){
         this.hand.clear();
+    } 
+    public int numWins(){
+      System.out.println(this.wins);
+      return this.wins;
     }
+    public int numLosses(){
+      return this.losses;
+    }
+    public int numScore(){
+      return this.score;
+    }
+
     
 }
+
