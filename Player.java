@@ -7,6 +7,7 @@ package Game;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import model.*; 
 
 public class Player {
@@ -15,7 +16,8 @@ public class Player {
     private int losses;
     private int points;
     private Card card;
-    List<Card> hand = new ArrayList<>();
+    private Scanner sc = new Scanner(System.in);
+    ArrayList<Card> hand = new ArrayList<>();
     
     Deck deck = new Deck();
     
@@ -28,16 +30,37 @@ public class Player {
     public void takeCard(ArrayList<Card> currentHand){
         currentHand.add(deck.drawCard());
     }
-    public void pass(){}
+    public boolean HitOrPass(){
+        if (busted(hand)){
+            System.out.println("You cant draw!");
+            return false;
+        }
+        System.out.println("Wanna draw?");
+        return this.sc.nextLine().equalsIgnoreCase("yes");
+    }
     public void playRound(){
-        deck.shuffle();
+        takeCard(hand);
+        getHandValue(hand);
+        checkWin(hand);
+    }
+    public boolean checkWin(ArrayList<Card> currentHand){
+        if (getHandValue(currentHand) < 21){
+            return true;
+        }
+        return false;
+    }
+    public boolean busted(ArrayList<Card> currentHand){
+        if (getHandValue(currentHand) > 21){
+            return true;
+        }else{
+            return false;
+        }
     }
     public int getHandValue(ArrayList<Card> currentHand){
-        int score = 0;
         for (int i = 0; i < currentHand.size(); i++){
-            score += currentHand.get(i).getRank().value;
+            points += currentHand.get(i).getRank().value;
         }
-        return score;
+        return points;
     }
     public void clearHand(ArrayList<Card> currentHand){
         currentHand.clear();
@@ -57,5 +80,10 @@ public class Player {
     public String name(){
         return this.name;
     }
-    public List<Card> hand(){}
+    public List<Card> hand(ArrayList<Card> currentHand){
+        for (int i = 0; i < currentHand.size(); i++){
+            System.out.println("Position " + (i+1) + ": " + currentHand.get(i));
+        }
+        return currentHand;
+    }
 }

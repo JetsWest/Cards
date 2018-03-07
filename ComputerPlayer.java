@@ -7,8 +7,8 @@ package Game;
 
 /**
  *
- * @author atkins4440j
+ * @author Rick
  */
-public class ComputerPlayer extends Player {
+public class ComputerPlayer {
     
 }
