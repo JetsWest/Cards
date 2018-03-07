@@ -11,79 +11,56 @@ import java.util.Scanner;
 import model.*; 
 
 public class Player {
-    private String name;
     private int wins;
     private int losses;
     private int points;
-    private Card card;
+    private int score;
+    public static final int POINTS_PER_GAME = 20;
     private Scanner sc = new Scanner(System.in);
-    ArrayList<Card> hand = new ArrayList<>();
+    private ArrayList<Card> hand;
     
-    Deck deck = new Deck();
-    
-    public Player(String playerName){
-        this.name = playerName;
+    public Player(){
+        this.score = 0;
         this.points = 0;
+        this.hand = new ArrayList<>();
         this.wins = 0;
         this.losses = 0;
     }
-    public void takeCard(ArrayList<Card> currentHand){
-        currentHand.add(deck.drawCard());
+    public void win() {
+       this.wins++; 
+       this.score += POINTS_PER_GAME;
     }
-    public boolean HitOrPass(){
-        if (busted(hand)){
-            System.out.println("You cant draw!");
-            return false;
-        }
-        System.out.println("Wanna draw?");
-        return this.sc.nextLine().equalsIgnoreCase("yes");
+
+    public void lose() {
+        this.losses--;
+        this.score -= POINTS_PER_GAME;
+    }
+    public void takeCard(Card card){
+        this.hand.add(card);
     }
     public void playRound(){
-        takeCard(hand);
-        getHandValue(hand);
-        checkWin(hand);
+        
     }
-    public boolean checkWin(ArrayList<Card> currentHand){
-        if (getHandValue(currentHand) < 21){
+    public boolean bust(){
+        if (getHandValue() > 21){
             return true;
         }
         return false;
     }
-    public boolean busted(ArrayList<Card> currentHand){
-        if (getHandValue(currentHand) > 21){
-            return true;
-        }else{
-            return false;
-        }
-    }
-    public int getHandValue(ArrayList<Card> currentHand){
-        for (int i = 0; i < currentHand.size(); i++){
-            points += currentHand.get(i).getRank().value;
-        }
+    public int getHandValue(){
+        for (int i = 0; i < this.hand.size(); i++){
+            if (this.hand.get(i).getRank().value > 10){
+                points += 10;
+            }else if (this.hand.get(i).getRank().value == 1){
+                points += 1;
+            }else{
+            points += this.hand.get(i).getRank().value;
+            }
+        }    
         return points;
     }
-    public void clearHand(ArrayList<Card> currentHand){
-        currentHand.clear();
+    public void clearHand(){
+        this.hand.clear();
     }
-    public int points(int score){
-        this.points = score;
-        return this.points;
-    }
-    public int wins(int win){
-        this.wins = win;
-        return this.wins;
-    }
-    public int losses(int lose){
-        this.losses = lose;
-        return this.losses;
-    }
-    public String name(){
-        return this.name;
-    }
-    public List<Card> hand(ArrayList<Card> currentHand){
-        for (int i = 0; i < currentHand.size(); i++){
-            System.out.println("Position " + (i+1) + ": " + currentHand.get(i));
-        }
-        return currentHand;
-    }
+    
 }
