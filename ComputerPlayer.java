@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import model.Card;
+import model.*;
 
 /**
  *
@@ -34,6 +35,7 @@ public class ComputerPlayer extends Player {
     public int difficulty(){
         return this.level;
     }
+    
     public void hitOrStay(){
         if (difficulty() == 1){
             if (getHandValue() < 21){
