@@ -33,14 +33,14 @@ public class Deck {
     
     public Card drawCard() throws NullPointerException{
         //Draws "top" card off the deck, then discards the card
-        if (marker == 0){
-        this.shuffle();
-        }
+      //  if (marker == 0){
+    //    this.shuffle();
+  //      }
         
         if (hasNext()){
             Card res = this.cards[marker];
             marker++;
-            System.out.println(res);
+    //        System.out.println(res);
             return res;
         }
         return null;

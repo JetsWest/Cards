@@ -14,7 +14,8 @@ import Game.*;
 public class TwentyOne {
     public static void main(String[] args){
         Game game = new Game();
-        Player player = new Player(game);
+        Player player = new Player();
+        game.run();
         //Each game starts and adds a player and a computer player
         //Game game creates a new deck for the game to run off of, and also creates the run method
         //After that, a method run is called from Game

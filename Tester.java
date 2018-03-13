@@ -5,6 +5,7 @@
  */
 package view;
 import java.util.Scanner;
+import Game.*;
 import model.*;
 /**
  *
@@ -13,8 +14,8 @@ import model.*;
 public class Tester {
     public static void main(String[] args){
         Deck deck = new Deck();
-        deck.shuffle();
-        welcomeScreen();
+        deck.mergeSort();
+        
     }
     public static void welcomeScreen(){
         System.out.println("-----WELCOME TO 21 GAME-----");
