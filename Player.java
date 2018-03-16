@@ -10,7 +10,8 @@ import java.util.List;
 import java.util.Scanner;
 import model.*;
 import org.boof.ListItemInput;
-
+import org.boof.UI;
+import org.boof.Output;
 public class Player {
 
     private int wins;
@@ -52,21 +53,20 @@ public class Player {
 
     public int getHandValue() {
         boolean ace = false;
+        points = 0;
         for (int i = 0; i < this.hand.size(); i++) {
             if (this.hand.get(i).getRank().value > 10) {
                 points += 10;
-            }
-            else if (this.hand.get(i).getRank().value == 1) {
+            } else if (this.hand.get(i).getRank().value == 1) {
                 ace = true;
-            }else{
-             points += this.hand.get(i).getRank().value;
+            } else {
+                points += this.hand.get(i).getRank().value;
             }
             if (ace == true && points + 11 <= 21) {
                 points += 11;
-            }  
-            
+            }
+
         }
-        System.out.println(points);
         return points;
     }
 
@@ -74,34 +74,41 @@ public class Player {
         this.hand.clear();
     }
 
-    public void printHand() {
-        for (int i = 0; i < this.hand.size(); i++) {
-            System.out.println((i + 1) + (":") + this.hand.get(i));
-        }
-    }
 
     public void play(Deck deck) {
         boolean isDone = false;
-        takeCard(deck.drawCard());
-        takeCard(deck.drawCard());
+        if (this.getHandValue() > 21){
+            System.out.println("You have busted!");
+            isDone = true;
+            this.lose();
+        }
         System.out.println("Here are your cards and your score:");
-        printHand();
-        System.out.println(getHandValue());
+        System.out.println(this.hand.toString());
+        System.out.println("Score: " + getHandValue());
         ListItemInput hitOrPass = new ListItemInput();
+        hitOrPass.setPrompt("Hit or pass?");
         hitOrPass.add("h", "hit");
         hitOrPass.add("p", "pass");
         while (!isDone){
-            System.out.println("Hit or pass?");
             hitOrPass.run();
-        if (hitOrPass.getKey().equalsIgnoreCase("h")) {
-            takeCard(deck.drawCard());
-        } else {
-            System.out.println("You have chosen to pass. Next player's turn.");
-            isDone = true;
+            if (!busted()){
+            if (hitOrPass.getKey().equalsIgnoreCase("h")) {
+                String result = "";
+                this.takeCard(deck.drawCard());
+                result += "You hand is now " + this.hand.toString() + "\n";
+                result += "Your score is now " + this.getHandValue();
+                System.out.println(result);
+            } else {
+                System.out.println("You have chosen to pass.");
+                isDone = true;
+            }
+            }else{
+                System.out.println("You cannot draw. Your final score was " + this.getHandValue());
+                isDone = true;
             }
         }
     }
-
+ 
     public int numWins() {
         return this.wins;
     }
@@ -112,5 +119,12 @@ public class Player {
 
     public int numScore() {
         return this.score;
+    }
+    public void peek(){
+        System.out.println();
+        System.out.println("---------------------------------------------------------------");
+        System.out.println("The first card in their hand is " + this.hand.get(0).toString());
+        System.out.println("---------------------------------------------------------------");
+        System.out.println();
     }
 }
