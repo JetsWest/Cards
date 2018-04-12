@@ -135,18 +135,21 @@ public class PictureLabFX extends Application {
 
     public static Image superimpose(double x, double y, Image patch, Image original) {
         Color[][] pixels = PictureUtility.imageTo2DArray(original);
-        Color[][] poxels = PictureUtility.imageTo2DArray(patch);
+        Color[][] newImg = PictureUtility.imageTo2DArray(patch);
         Color[][] result = new Color[pixels.length][pixels[0].length];
-        for (int row = 0; row < (int) y; row++){
-            for (int col = 0; col < (int) x; col++){
+        
+        for (int row = 0; row < result.length; row++) {
+            for (int col = 0; col < result[0].length; col++) {
                 result[row][col] = pixels[row][col];
             }
         }
-        for (int row = (int) y; row < poxels.length+(int)y; row++) {
-            for (int col = (int) x; col < poxels[0].length+(int) x; col++) {
-                result[row][col] = poxels[row][col];
+        
+        for (int row = (int) y; row < newImg.length + (int) y; row++){
+            for (int col = (int) x; col < newImg[0].length + (int) x; col++){
+                result[row][col] = newImg[row - (int) y][col - (int) x];
             }
         }
+        
         
         return PictureUtility.array2DToImage(result);
     }
@@ -160,7 +163,7 @@ public class PictureLabFX extends Application {
 
         for (int row = (int) y; row < adjHeight + (int) y; row++) {
             for (int col = (int) x; col < adjWidth + (int) x; col++) {
-                patch[row-(int)y][col-(int)x] = fullImage[row][col];
+                patch[row - (int) y][col - (int) x] = fullImage[row][col];
             }
         }
         return PictureUtility.array2DToImage(patch);
